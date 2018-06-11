@@ -17,10 +17,19 @@
   display:block;
 }
 
-.btn-remove {
+.btn-complete, .btn-remove {
   float: right;
+}
+
+.btn-complete {
+  margin-right: 10px;
 }
 
 #to-do-list{
   margin-top: 23px;
+}
+
+.complete {
+  text-decoration: line-through;
+  text-decoration-color: red;
 }

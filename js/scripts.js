@@ -21,7 +21,8 @@ function validateInput(uiTask, uiTime, uiLocation) {
 function displayItem(toDo) {
   id = counter++;
   var removeButton = "<button type='button' class='btn btn-danger btn-md btn-remove'>X</button>";
-  var panelHeading = "<div class='panel panel-default'><div class='panel-heading' id=" + id + ">" + toDo.task + removeButton + "</div>";
+  var completeButton = "<button type='button' class='btn btn-success btn-md btn-complete'>Complete</button>";
+  var panelHeading = "<div class='panel panel-default'><div class='panel-heading' id=" + id + ">" + toDo.task + removeButton + completeButton + "</div>";
   var panelBody = "<div class='panel-body'>Scheduled Time: " + toDo.time + "<br/>Location: " + toDo.location + "</div></div>";
   $("#to-do-list").append(panelHeading + panelBody);
   addBtnEventListener();
@@ -32,6 +33,10 @@ function addBtnEventListener() {
   $(".btn-remove").bind("click", function() {
     removeTask(this);
   });
+
+  $(".btn-complete").bind("click", function() {
+    strikeOut(this);
+  });
 }
 
 function addHeaderEventListener(id) {
@@ -40,9 +45,12 @@ function addHeaderEventListener(id) {
   });
 }
 
-
 function removeTask(element){
   $(element).parents().parents(".panel").remove();
+}
+
+function strikeOut(element){
+  $(element).parents(".panel-heading").toggleClass("complete");
 }
 
 // USER INTERFACE LOGIC
