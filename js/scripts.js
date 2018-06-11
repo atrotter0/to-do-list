@@ -1,3 +1,5 @@
+var counter = 0;
+
 // BUSINESS LOGIC
 function ListItem(task, time, location) {
   this.task = task;
@@ -17,12 +19,13 @@ function validateInput(uiTask, uiTime, uiLocation) {
 }
 
 function displayItem(toDo) {
+  id = counter++;
   var removeButton = "<button type='button' class='btn btn-danger btn-md btn-remove'>X</button>";
-  var panelHeading = "<div class='panel panel-default'><div class='panel-heading'>" + toDo.task + removeButton + "</div>";
+  var panelHeading = "<div class='panel panel-default'><div class='panel-heading' id=" + id + ">" + toDo.task + removeButton + "</div>";
   var panelBody = "<div class='panel-body'>" + toDo.time + "<br/>" + toDo.location + "</div></div>";
   $("#to-do-list").append(panelHeading + panelBody);
   addBtnEventListener();
-  addHeaderEventListener();
+  addHeaderEventListener(id);
 }
 
 function addBtnEventListener() {
@@ -31,8 +34,8 @@ function addBtnEventListener() {
   });
 }
 
-function addHeaderEventListener() {
-  $(".panel-heading").bind("click", function() {
+function addHeaderEventListener(id) {
+  $("#" + id).bind("click", function() {
     $(this).siblings(".panel-body").slideToggle();
   });
 }
@@ -44,6 +47,7 @@ function removeTask(element){
 
 // USER INTERFACE LOGIC
 $(document).ready(function() {
+
   $("#add-item").click(function(event) {
     event.preventDefault();
 
