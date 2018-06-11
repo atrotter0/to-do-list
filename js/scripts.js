@@ -22,7 +22,7 @@ function displayItem(toDo) {
   id = counter++;
   var removeButton = "<button type='button' class='btn btn-danger btn-md btn-remove'>X</button>";
   var panelHeading = "<div class='panel panel-default'><div class='panel-heading' id=" + id + ">" + toDo.task + removeButton + "</div>";
-  var panelBody = "<div class='panel-body'>" + toDo.time + "<br/>" + toDo.location + "</div></div>";
+  var panelBody = "<div class='panel-body'>Scheduled Time: " + toDo.time + "<br/>Location: " + toDo.location + "</div></div>";
   $("#to-do-list").append(panelHeading + panelBody);
   addBtnEventListener();
   addHeaderEventListener(id);
