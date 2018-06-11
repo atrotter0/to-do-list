@@ -5,10 +5,41 @@ function ListItem(task, time, location) {
   this.location = location;
 }
 
+function validateInput(uiTask, uiTime, uiLocation) {
+  if (uiTask !== "" && uiTime !== "" && uiLocation !== "") {
+    var toDoItem = new ListItem(uiTask, uiTime, uiLocation);
+    displayItem(toDoItem);
+    $("#the-form")[0].reset();
+  } else {
+    $(".alert").fadeIn(800).delay(5000).fadeOut(800);
+    $("#warning").text("You need to fill out all fields to submit a new task.");
+  }
+}
+
 function displayItem(toDo) {
-  $(".to-do-list-row").append("<div class='col-md-4 to-do-task'>" + toDo.task + "</div>");
-  $(".to-do-list-row").append("<div class='col-md-4 to-do-task'>" + toDo.time + "</div>");
-  $(".to-do-list-row").append("<div class='col-md-4 to-do-task'>" + toDo.location + "</div>");
+  var removeButton = "<button type='button' class='btn btn-danger btn-md btn-remove'>X</button>";
+  var panelHeading = "<div class='panel panel-default'><div class='panel-heading'>" + toDo.task + removeButton + "</div>";
+  var panelBody = "<div class='panel-body'>" + toDo.time + "<br/>" + toDo.location + "</div></div>";
+  $("#to-do-list").append(panelHeading + panelBody);
+  addBtnEventListener();
+  addHeaderEventListener();
+}
+
+function addBtnEventListener() {
+  $(".btn-remove").bind("click", function() {
+    removeTask(this);
+  });
+}
+
+function addHeaderEventListener() {
+  $(".panel-heading").bind("click", function() {
+    $(this).siblings(".panel-body").slideToggle();
+  });
+}
+
+
+function removeTask(element){
+  $(element).parents().parents(".panel").remove();
 }
 
 // USER INTERFACE LOGIC
@@ -19,8 +50,6 @@ $(document).ready(function() {
     var uiTask = $("#task").val();
     var uiTime = $("#time").val();
     var uiLocation = $("#location").val();
-    var toDoItem = new ListItem(uiTask, uiTime, uiLocation);
-    displayItem(toDoItem);
-    $("#the-form")[0].reset();
+    validateInput(uiTask, uiTime, uiLocation);
   });
 });
